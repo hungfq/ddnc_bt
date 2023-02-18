@@ -59,10 +59,25 @@ class NewsData {
         "2022-02-16",
         "https://i1-giaitri.vnecdn.net/2023/02/16/image-8480-1676538225.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=0lfjD0YmK6ORnOclxvyOTQ"),
     NewsData(
-        "Đạo diễn Peyton Reed: ‘Người Kiến 3 bớt hài, tăng chiều sâu tâm lý’",
+        "Song Joong Ki xuất hiện cùng vợ",
         "Như Anh",
         "Theo Osen, ngày 16/2, đôi vợ chồng tới sân bay quốc tế Incheon để sang Hungrari. Nam diễn viên có lịch trình quay phim My Name is Loh Kiwan ở đây. Lần đầu cặp uyên ương công khai sánh đôi, kể từ khi thông báo kết hôn hồi cuối tháng 1.",
         "2022-02-16",
         "https://i1-giaitri.vnecdn.net/2023/02/16/song8-6219-1676532607.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=-GZJcAZ6dwmr0_2m4hKtDA"),
+  ];
+
+  static List<NewsData> bookMarkData = [
+    NewsData(
+        "Công an Cần Thơ khởi tố vụ án liên quan Việt Á",
+        "An Bình",
+        "Ngày 18/2, nguồn tin của VnExpress cho biết, các chứng cứ, hồ sơ, tài liệu, kết quả giám định... từ những đơn vị, bộ nghành, địa phương cung cấp đã cho thấy dấu hiệu tội phạm khi thực hiện các gói thầu trên. Do đó, Công an TP Cần Thơ đã phục hồi điều tra và khởi tố vụ án Vi phạm quy định về đấu thầu gây hậu quả nghiêm trọng theo Điều 222 Bộ luật Hình sự.",
+        "2022-02-18",
+        "https://i1-vnexpress.vnecdn.net/2023/02/18/bo-kit-hoc-vien-6875-158337825-6566-9692-1676687923.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=hbJ9DubIUA1tn4fx92rXVQ"),
+    NewsData(
+        "Khởi tố vụ án sai phạm tại Sở Giáo dục và Đào tạo Hà Tĩnh",
+        "Đức Hùng",
+        "Tối 15/2, Công an tỉnh Hà Tĩnh cho biết đã khởi tố vụ án Vi phạm quy định đấu thầu gây hậu quả nghiêm trọng liên quan đến những sai phạm trong công tác mua sắm thiết bị giáo dục xảy ra tại Sở Giáo dục và Đào tạo.",
+        "2022-02-16",
+        "https://i1-vnexpress.vnecdn.net/2023/02/17/may-chieu-da-nang-9891-1676637527.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=oHFG78_GojEIrSV_ebwARw"),
   ];
 }

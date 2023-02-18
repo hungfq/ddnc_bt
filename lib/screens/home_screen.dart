@@ -1,8 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:tuan2/components/breaking_news_card.dart';
-import 'package:tuan2/components/news_list_tile.dart';
-import 'package:tuan2/models/news_model.dart';
+import 'package:tuan2/screens/news_screen.dart';
+import 'package:tuan2/screens/bookmark_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,10 +10,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _page = 0;
+  late PageController pageController = PageController();
+
+  void onPageChange(int page) {
+    setState(() {
+      _page = page;
+    });
+  }
+
+  void navigationTap(int page) {
+    pageController.jumpToPage(page);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //let's start with the Appbar
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
@@ -33,59 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
 
-      //Let's now work on the body
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Breaking News",
-                style: TextStyle(
-                  fontSize: 26.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              //let's build our caroussel
-              CarouselSlider.builder(
-                  itemCount: NewsData.breakingNewsData.length,
-                  itemBuilder: (context, index, id) =>
-                      BreakingNewsCard(NewsData.breakingNewsData[index]),
-                  options: CarouselOptions(
-                    aspectRatio: 16 / 9,
-                    enableInfiniteScroll: false,
-                    enlargeCenterPage: true,
-                  )),
-              const SizedBox(
-                height: 40.0,
-              ),
-              const Text(
-                "Recent News",
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              //now let's create the cards for the recent news
-              Column(
-                children: NewsData.recentNewsData
-                    .map((e) => NewsListTile(e))
-                    .toList(),
-              ),
-            ],
-          ),
-        ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChange,
+        children: [
+          const NewsScreen(),
+          BookmarkScreen(),
+          const Text('sssss'),
+        ],
       ),
 
-      //Now let's create the button navigation bar
       bottomNavigationBar: Container(
         // let's make our button nav bar float
         margin: EdgeInsets.all(12),
@@ -96,6 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: BottomNavigationBar(
           elevation: 0.0,
           selectedItemColor: Colors.orange.shade900,
+          onTap: navigationTap,
+          currentIndex: _page,
           items: const [
             BottomNavigationBarItem(
               backgroundColor: Colors.transparent,
@@ -107,12 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
               label: "Bookmark",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.rss_feed_rounded),
-              label: "Feed",
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: "Profile",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.rss_feed_rounded),
+              label: "Feed",
             ),
           ],
         ),

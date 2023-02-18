@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const NewsScreen(),
           BookmarkScreen(),
           const ProfileScreen(),
-          const Text('sssss'),
+          const Text('Feed'),
         ],
       ),
 

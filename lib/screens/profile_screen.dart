@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tuan2/components/square_title.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(18.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -21,33 +20,123 @@ class ProfileScreenState extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                SquareTitle(imagePath: 'lib/images/avatar.jpg'),
+                CircleAvatar(
+                    radius: 48, // Image radius
+                    backgroundImage: AssetImage('lib/images/avatar.jpg'),
+                ),
               ],
             ),
-            const SizedBox(
-              height: 8.0,
+            const SizedBox(height: 12),
+            const _ProfileProperty(
+              propertyName: "Email",
+              propertyValue: "19110373@student.hcmute.edu.vn",
+              maxLines: 2,
             ),
-            const Text(
-              'ABC',
-              style: TextStyle(
-                fontSize: 26.0,
-                fontWeight: FontWeight.bold,
-              ),
+            const SizedBox(height: 12),
+            const _ProfileProperty(
+              propertyName: "Username",
+              propertyValue: "hungpq",
+              maxLines: 2,
             ),
-            const SizedBox(
-              height: 8.0,
+            const SizedBox(height: 12),
+            const _ProfileProperty(
+              propertyName: "Password",
+              propertyValue: "Change Password",
+              maxLines: 2,
             ),
-            const Text(
-              'ABC',
-              style: TextStyle(
-                color: Colors.black54,
-              ),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Padding(
+                  padding: EdgeInsetsDirectional.only(
+                      start: 12,
+                      bottom: 12),
+                  child: Text(
+                    "Personal Info",
+                    style: TextStyle(
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  alignment: Alignment.bottomCenter,
+                  icon: const Icon(
+                    Icons.edit_rounded,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 20.0,
+            const _ProfileProperty(
+              propertyName: "First Name",
+              propertyValue: "Hung",
+              maxLines: 2,
+            ),
+            const SizedBox(height: 12),
+            const _ProfileProperty(
+              propertyName: "Last Name",
+              propertyValue: "Pham Quang",
+              maxLines: 2,
+            ),
+            const SizedBox(height: 12),
+            const _ProfileProperty(
+              propertyName: "Gender",
+              propertyValue: "Male",
+              maxLines: 1,
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ProfileProperty extends StatelessWidget {
+  const _ProfileProperty({
+    Key? key,
+    required this.propertyName,
+    required this.propertyValue,
+    this.maxLines = 1,
+  }) : super(key: key);
+
+  final String propertyName;
+  final String propertyValue;
+  final int maxLines;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            propertyName,
+            style: TextStyle(
+              color: Colors.grey[600],
+            ),
+          ),
+          Expanded(
+            child: Text(
+              propertyValue,
+              maxLines: maxLines,
+              textAlign: TextAlign.right,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

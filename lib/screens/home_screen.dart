@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuan2/screens/news_screen.dart';
 import 'package:tuan2/screens/bookmark_screen.dart';
+import 'package:tuan2/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const NewsScreen(),
           BookmarkScreen(),
+          const ProfileScreen(),
           const Text('sssss'),
         ],
       ),

@@ -8,7 +8,7 @@ class BookmarkScreen extends StatelessWidget {
     return Scaffold(
         body: SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

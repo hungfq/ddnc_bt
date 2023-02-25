@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:tuan2/models/news_model.dart';
-import 'package:tuan2/components/news_list_tile.dart';
+import 'package:tuan2/models/photo_model.dart';
+import 'package:tuan2/components/photo_list_tile.dart';
 
-class BookmarkScreen extends StatelessWidget {
+class PhotoScreen extends StatelessWidget {
+  const PhotoScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Bookmark",
+              "List Photo",
               style: TextStyle(
-                fontSize: 26,
+                fontSize: 26.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(
-              height: 16.0,
+              height: 20,
             ),
-            //now let's create the cards for the recent news
             Column(
               children:
-                  NewsData.bookMarkData.map((e) => NewsListTile(e)).toList(),
+              PhotoData.listPhotoData.map((e) => PhotoListTile(e)).toList(),
             ),
-            //now let's create the cards for the recent news
+            //let's build our caroussel
           ],
         ),
       ),

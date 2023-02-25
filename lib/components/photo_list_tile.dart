@@ -1,27 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:tuan2/models/news_model.dart';
+import 'package:tuan2/models/photo_model.dart';
 
-import '../screens/details_screen.dart';
-
-class NewsListTile extends StatefulWidget {
-  NewsListTile(this.data, {Key? key}) : super(key: key);
-  NewsData data;
+class PhotoListTile extends StatefulWidget {
+  PhotoListTile(this.data, {Key? key}) : super(key: key);
+  PhotoData data;
 
   @override
-  State<NewsListTile> createState() => _NewsListTileState();
+  State<PhotoListTile> createState() => _PhotoListTileState();
 }
 
-class _NewsListTileState extends State<NewsListTile> {
+class _PhotoListTileState extends State<PhotoListTile> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailsScreen(widget.data),
-            ));
-      },
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(bottom: 20.0),
@@ -42,7 +33,7 @@ class _NewsListTileState extends State<NewsListTile> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.data.urlToImage!),
+                      image: AssetImage(widget.data.url!),
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -64,7 +55,7 @@ class _NewsListTileState extends State<NewsListTile> {
                     const SizedBox(
                       height: 8.0,
                     ),
-                    Text(widget.data.content!,
+                    Text(widget.data.url!,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           color: Colors.white54,

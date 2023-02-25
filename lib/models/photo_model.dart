@@ -1,18 +1,25 @@
-class PhotoData {
-  String? title;
-  String? url;
+class Photo {
+  final int albumId;
+  final int id;
+  final String title;
+  final String url;
+  final String thumbnailUrl;
 
-  //let's create the constructor
-  PhotoData(this.title, this.url);
+  const Photo({
+    required this.albumId,
+    required this.id,
+    required this.title,
+    required this.url,
+    required this.thumbnailUrl,
+  });
 
-  static List<PhotoData> listPhotoData = [
-    PhotoData("Hinh RC1", "lib/images/rc1.jpg"),
-    PhotoData("Hinh RC2", "lib/images/rc2.jpg"),
-    PhotoData("Hinh RC3", "lib/images/rc3.jpg"),
-    PhotoData("Hinh RC4", "lib/images/rc4.jpg"),
-    PhotoData("Hinh RC4", "lib/images/rc4.jpg"),
-    PhotoData("Hinh NEW1", "lib/images/new1.jpg"),
-    PhotoData("Hinh NEW2", "lib/images/new2.jpg"),
-    PhotoData("Hinh NEW3", "lib/images/new3.jpg"),
-  ];
+  factory Photo.fromJson(Map<String, dynamic> json) {
+    return Photo(
+      albumId: json['albumId'] as int,
+      id: json['id'] as int,
+      title: json['title'] as String,
+      url: json['url'] as String,
+      thumbnailUrl: json['thumbnailUrl'] as String,
+    );
+  }
 }

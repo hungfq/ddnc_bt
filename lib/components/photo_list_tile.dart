@@ -3,7 +3,7 @@ import 'package:tuan2/models/photo_model.dart';
 
 class PhotoListTile extends StatefulWidget {
   PhotoListTile(this.data, {Key? key}) : super(key: key);
-  PhotoData data;
+  Photo data;
 
   @override
   State<PhotoListTile> createState() => _PhotoListTileState();
@@ -33,7 +33,7 @@ class _PhotoListTileState extends State<PhotoListTile> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.data.url!),
+                      image: NetworkImage(widget.data.url!),
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -46,7 +46,16 @@ class _PhotoListTileState extends State<PhotoListTile> {
             Flexible(
                 flex: 5,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      'ID: ${widget.data.id!}  ALBUM_ID: ${widget.data.albumId}',
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
                     Text(
                       widget.data.title!,
                       style: const TextStyle(

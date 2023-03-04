@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tuan2/reviews.dart';
 import 'firebase_options.dart';
 import 'dart:core';
+import 'model/Record.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,78 +17,73 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('users');
-  final CollectionReference productsCollection =
-      FirebaseFirestore.instance.collection('products');
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Firestore Example',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Firestore Example'),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: _buildBody(context));
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('hung_test2').snapshots(),
+      builder: (context, snapshot) {
+        print(snapshot.data);
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        return _buildList(context, snapshot.data?.docs ?? []);
+      },
+    );
+  }
+
+  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
+    return ListView(
+      padding: const EdgeInsets.only(top: 22.0),
+      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+    );
+  }
+
+  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
+    final record = Record.fromSnapshot(data);
+    return Padding(
+      key: ValueKey(record.name),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.red),
+          borderRadius: BorderRadius.circular(6.0),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Users'),
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream: usersCollection.snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        QueryDocumentSnapshot document =
-                            snapshot.data!.docs[index];
-                        return ListTile(
-                          title: Text(document['name']),
-                          subtitle: Text(document['email']),
-                        );
-                      },
-                    ),
-                  );
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Products'),
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream: productsCollection.snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        QueryDocumentSnapshot document =
-                            snapshot.data!.docs[index];
-                        return ListTile(
-                          title: Text(document['name']),
-                          subtitle: Text('Price: ${document['price']}'),
-                        );
-                      },
-                    ),
-                  );
-                } else {
-                  return CircularProgressIndicator();
-                }
-              },
-            ),
-          ],
-        ),
+        child: ListTile(
+            title: Text(record.name),
+            trailing: Text(record.vote.toString()),
+            onTap: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ReviewState(record)))
+                }),
       ),
     );
   }
